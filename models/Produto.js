@@ -1,4 +1,4 @@
-// Modelo corrigido do Produto
+// models/Produto.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -83,6 +83,7 @@ const Produto = sequelize.define('Produto', {
     timestamps: true,
     hooks: {
         beforeSave: (produto) => {
+            // Calculando o preço com desconto se a promoção estiver ativa
             if (produto.promocao && produto.porcentagemPromocao) {
                 produto.preco_desconto = (produto.preco - (produto.preco * produto.porcentagemPromocao / 100)).toFixed(2);
             } else {

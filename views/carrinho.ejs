@@ -101,6 +101,13 @@
             background-color: #27ae60;
         }
     </style>
+    <script>
+        function confirmarRemocao(produtoId) {
+            if (confirm("Tem certeza de que deseja remover este produto?")) {
+                document.getElementById(`remover-form-${produtoId}`).submit();
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container" style="background-image: url('/img/logo.png'); background-size: cover;">
@@ -148,9 +155,9 @@
                             <h4><%= item.nome_produto %></h4>
                             <p>Quantidade: <%= item.quantidade %></p>
                         </div>
-                        <form action="/carrinho/remover" method="POST">
+                        <form id="remover-form-<%= item.id %>" action="/carrinho/remover" method="POST">
                             <input type="hidden" name="produtoId" value="<%= item.id %>">
-                            <button type="submit">Remover</button>
+                            <button type="button" onclick="confirmarRemocao(<%= item.id %>)">Remover</button>
                         </form>
                     </div>
                 <% }); %>
